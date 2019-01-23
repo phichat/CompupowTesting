@@ -1,0 +1,51 @@
+<form action="" [formGroup]="empAddrFG" (ngSubmit)="onSave()">
+  <div class="row form-group">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-4">
+      <ng-select formControlName="emCode" [items]="emDropdown" [typeahead]="emTypeahead" dropdownPosition="auto"
+        bindLabel="emName" bindValue="emCode" [virtualScroll]="true" placeholder="ค้นหาพนักงาน" [loading]="searchEmLoading"
+        [loadingText]="searchEmLoadingTxt" (change)="getEmpAddrByCode($event)">
+        <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+          <span>{{item.emCode}} : {{item.emName}}</span>
+        </ng-template>
+      </ng-select>
+    </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-3"></div>
+  </div>
+  <hr>
+
+  <div formArrayName="address">
+    <ng-container *ngFor="let item of Address.controls; let i=index;" [formGroupName]="i">
+      <input type="text" formControlName="emType" style="display: none;">
+      <div class="row form-group">
+        <label for="" class="col-sm-3 control-label" [ngSwitch]="item.value.emType">
+          <span *ngSwitchCase="1">ที่อยู่ปัจจุบัน ที่อยู่ 1</span>
+          <span *ngSwitchCase="2">ที่อยู่ตามทะเบียนบ้าน ที่อยู่ 3</span>
+        </label>
+        <div class="col-sm-7">
+          <input type="text" formControlName="emAddr1" class="form-control form-control-md" maxlength=60>
+        </div>
+      </div>
+      <div class="row form-group">
+        <label for="" class="col-sm-3 control-label" [ngSwitch]="item.value.emType">
+          <span *ngSwitchCase="1">ที่อยู่ 2</span>
+          <span *ngSwitchCase="2">ที่อยู่ 4</span>
+        </label>
+        <div class="col-sm-7">
+          <input type="text" formControlName="emAddr2" class="form-control form-control-md" maxlength=60>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="row from-group">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-7 text-center">
+      <p class="form-control">สำเนาที่อยู่ปัจจุบัน &rarr; ที่อยู่ตามทะเบียนบ้าน</p>
+    </div>
+    <div class="col-sm-3">
+      <button type="submit" class="btn btn-md btn-default">บันทึก</button> &nbsp;&rarr;&nbsp; บันทึกข้อมูลที่อยู่
+    </div>
+  </div>
+</form>

@@ -1,0 +1,19 @@
+<div class="container-fluid mt-3 mb-3">
+  <ul class="nav nav-tabs mb-6">
+    <li [ngClass]="{'active': viewMode == 'tab1'}">
+      <a href="javaScript:void(0);" (click)="viewMode ='tab1'">ข้อมูลพนักงาน</a>
+    </li>
+    <li [ngClass]="{'active': viewMode == 'tab2'}">
+      <a href="javaScript:void(0);" (click)="viewMode ='tab2'">ที่อยู่พนักงาน</a>
+    </li>
+  </ul>
+
+  <div [ngSwitch]="viewMode">
+    <ng-container *ngSwitchCase="'tab1'">
+      <app-frm-employee></app-frm-employee>
+    </ng-container>
+    <ng-container *ngSwitchCase="'tab2'">
+      <app-frm-emp-addr></app-frm-emp-addr>
+    </ng-container>
+  </div>
+</div>
